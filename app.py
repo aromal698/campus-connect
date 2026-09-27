@@ -44,7 +44,13 @@ def ask_ai(question, department, year):
     if not api_key:
         return None
     try:
-        from openai import OpenAI
+        from openai import (
+            APIConnectionError,
+            APIStatusError,
+            AuthenticationError,
+            OpenAI,
+            RateLimitError,
+        )
 
         client = OpenAI(api_key=api_key)
         history = st.session_state.chat[-8:]
@@ -60,11 +66,32 @@ def ask_ai(question, department, year):
             input=f"Recent conversation:\n{prompt}\nuser: {question}",
         )
         return response.output_text
+    except AuthenticationError:
+        return (
+            "OpenAI rejected the API key. Create or select a valid API key in the OpenAI API platform, "
+            "replace OPENAI_API_KEY in this app's Streamlit Secrets, save, and reboot the app."
+        )
+    except RateLimitError:
+        return (
+            "The OpenAI API account has reached a usage limit or has no available API credit. "
+            "Check the API platform's billing and usage limits, then try again."
+        )
+    except APIConnectionError:
+        return "The app could not connect to the OpenAI API. Please try again in a little while."
+    except APIStatusError as exc:
+        if exc.status_code == 404:
+            return (
+                "The selected AI model is unavailable to this API project. Check OPENAI_MODEL in "
+                "Streamlit Secrets and choose a model available to your project."
+            )
+        return (
+            f"The OpenAI API returned an error (HTTP {exc.status_code}). Check the API project settings "
+            "and try again. The app hides the detailed error to protect your API key."
+        )
     except Exception:
         return (
-            "I couldn't reach the AI service. Check that Streamlit Secrets contains your real "
-            "OpenAI API key and the correct model name, then reboot the app. If the problem "
-            "continues, ask the app owner to check the server logs."
+            "The AI request failed for an unexpected reason. Ask the app owner to check the server logs. "
+            "Detailed errors are hidden to protect your API key."
         )
 
 
