@@ -60,8 +60,12 @@ def ask_ai(question, department, year):
             input=f"Recent conversation:\n{prompt}\nuser: {question}",
         )
         return response.output_text
-    except Exception as exc:
-        return f"I couldn't reach the AI service. Check the API key and model setting in Streamlit secrets. Details: {exc}"
+    except Exception:
+        return (
+            "I couldn't reach the AI service. Check that Streamlit Secrets contains your real "
+            "OpenAI API key and the correct model name, then reboot the app. If the problem "
+            "continues, ask the app owner to check the server logs."
+        )
 
 
 init_state()
@@ -84,15 +88,18 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 h1,h2,h3 { font-family: 'Manrope', sans-serif; letter-spacing: -0.035em; }
-.topline { color:#497267; font-size:0.72rem; font-weight:700; letter-spacing:.16em; margin:0 0 .5rem; }
-.hero { padding:2rem 2.2rem; border-radius:22px; background:linear-gradient(120deg,#e9f4ec,#f4f1e7 70%,#f4e8d8); border:1px solid #e5e8dc; }
-.hero h2 { margin:0 0 .6rem; font-size:2rem; color:#183a31; }
-.hero p { color:#40564e; max-width:650px; margin:0; line-height:1.65; }
-.tile { background:#fff; border:1px solid #e7ebe6; border-radius:18px; padding:1.15rem 1.3rem; min-height:125px; }
-.tile b { color:#193b32; font-size:1rem; }
-.tile p { color:#66746e; font-size:.9rem; margin:.45rem 0 0; }
-[data-testid="stSidebar"] { background:#f5f6f1; }
-div.stButton > button { border-radius:12px; }
+.topline { color:#176b5b; font-size:0.72rem; font-weight:700; letter-spacing:.16em; margin:0 0 .5rem; }
+.hero { padding:2rem 2.2rem; border-radius:22px; background:linear-gradient(120deg,#e5f2ec,#f2f6ee 75%,#eaf2ee); border:1px solid #d7e4dc; }
+.hero h2 { margin:0 0 .6rem; font-size:2rem; color:#153b33; }
+.hero p { color:#334e47; max-width:650px; margin:0; line-height:1.65; }
+.tile { background:#fff; border:1px solid #dbe5df; border-radius:18px; padding:1.15rem 1.3rem; min-height:125px; }
+.tile b { color:#153b33; font-size:1rem; }
+.tile p { color:#435b53; font-size:.9rem; margin:.45rem 0 0; }
+[data-testid="stSidebar"] { background:#edf3ef; }
+div.stButton > button { border-radius:12px; border-color:#176b5b; color:#14584c; font-weight:600; }
+div.stButton > button:hover { background:#e5f2ec; border-color:#14584c; color:#103f36; }
+div.stButton > button:focus-visible { outline:3px solid #176b5b; outline-offset:2px; }
+[data-testid="stMetric"] { background:#fff; border:1px solid #dbe5df; padding:1rem; border-radius:16px; }
 </style>
 """, unsafe_allow_html=True)
 
