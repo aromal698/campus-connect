@@ -1,6 +1,6 @@
 # CampusConnect — a B.Tech student community app
 
-A beginner-friendly Streamlit starter app for students across all departments. It includes a campus feed, student-created study groups, a cross-department project teammate form, and an optional AI study buddy.
+A Streamlit MVP for students across departments. It includes starter groups for every department and semester, joinable memberships, member-only group chats, campus activities and notices, Gemini-assisted post drafting, and a feedback page.
 
 ## Files in this project
 
@@ -15,7 +15,11 @@ campus-connect/
     └── secrets.toml.example       # Safe Gemini settings template; no real API key
 ```
 
-You only need to edit `app.py` to change the app's features. `config.toml` sets the app's color theme. `requirements.txt` tells Python which packages to install. `secrets.toml.example` demonstrates the Gemini settings format. To use AI locally, copy it and name the copy `secrets.toml`, then put your real key in that private copy.
+`app.py` contains the app. It creates a local SQLite database for groups, memberships, chat messages, notices, activities, and feedback. `config.toml` sets the green color theme. `requirements.txt` lists Python packages. `secrets.toml.example` demonstrates the Gemini settings format. To use AI locally, copy it to `secrets.toml` and add your real Gemini key there.
+
+## Important before inviting students
+
+This is a working MVP, not a finished production service. It uses local SQLite and lets visitors choose a display name without verifying their identity. Streamlit Community Cloud does not guarantee local-file persistence, so its database may be deleted. Use sample data until you connect a hosted database, add real student sign-in and admin moderation, and test the deployment. Group messages are visible to group members. Gemini free-tier prompts may be used to improve Google's products; do not enter personal or confidential information.
 
 ## App color theme
 
@@ -63,7 +67,7 @@ If needed, use `py -m streamlit run app.py`. Your browser should open the app. K
 
 ## 6. Try it out
 
-Use the left menu to visit the campus feed, create a study group, post a project teammate request, and open the AI study buddy. The AI section works in demo mode until you set up an API key. Posts and groups are kept in temporary session memory; they reset when the server restarts and are not shared between students. Before inviting a whole campus, connect a database and add sign-in and moderation.
+Use the left menu to browse groups for each department and semester, join one to open its group chat, create your own group, publish campus activities or notices, use the AI study buddy, and send feedback. The home page shows today's activities, special campus highlights, and important notices. Locally, the app stores records in `campusconnect.db`; on Streamlit Community Cloud, local-file persistence is not guaranteed.
 
 ## 7. Optional: connect the free-tier Gemini study buddy
 
