@@ -73,7 +73,7 @@ For local use:
 
 1. In the app folder, open `.streamlit`.
 2. Copy `secrets.toml.example` and rename the copy to `secrets.toml` (keep the example file too).
-3. Open `secrets.toml` and replace the placeholder with your own key:
+3. Open `secrets.toml` and replace the entire placeholder `paste-your-key-here` with your real OpenAI API key. Do not leave the sample text or use your ChatGPT password:
 
 ```toml
 OPENAI_API_KEY = "paste-your-key-here"
@@ -86,7 +86,7 @@ For a deployed app on Streamlit Community Cloud:
 
 1. Open your app's page in your [Streamlit Community Cloud workspace](https://share.streamlit.io/).
 2. Open the app menu and choose **Settings**. You can also enter the secrets during deployment under **Advanced settings → Secrets**.
-3. In the **Secrets** box, paste the two lines shown above with your real API key in place of the placeholder.
+3. In the **Secrets** box, paste the two lines shown above and replace `paste-your-key-here` with your real OpenAI API key. Do not leave the placeholder text or use your ChatGPT password.
 4. Save. Streamlit will restart the app, and the AI study buddy can use the key.
 
 Never put the real key in the public GitHub repository. The AI code runs on the Streamlit server, so the key is not sent to visitors' browsers. If you accidentally publish a real key, revoke it in the OpenAI API platform and create a new one.
