@@ -11,10 +11,15 @@ campus-connect/
 ├── README.md                      # These instructions
 ├── .gitignore                     # Keeps secrets and temporary files out of GitHub
 └── .streamlit/
+    ├── config.toml                # App colors and theme
     └── secrets.toml.example       # Safe template; contains no real API key
 ```
 
-You only need to edit `app.py` to change the app. `requirements.txt` tells Python which packages to install. `secrets.toml.example` demonstrates the AI settings format. To use AI locally, copy it and name the copy `secrets.toml`, then put your real key in that private copy.
+You only need to edit `app.py` to change the app's features. `config.toml` sets the app's color theme. `requirements.txt` tells Python which packages to install. `secrets.toml.example` demonstrates the AI settings format. To use AI locally, copy it and name the copy `secrets.toml`, then put your real key in that private copy.
+
+## App color theme
+
+The app uses a calm green and off-white palette with dark text for readability. The palette is set in `.streamlit/config.toml`; `app.py` also styles the cards, sidebar, and buttons to match. To change the theme later, edit `config.toml` and commit the change to GitHub.
 
 ## 1. Get the project onto your computer
 
@@ -77,7 +82,14 @@ OPENAI_MODEL = "gpt-5"
 
 4. Save the file and restart Streamlit. The `.gitignore` file prevents this secrets file from being added to Git by accident.
 
-For a deployed app, paste these same two lines into **Advanced settings → Secrets** while deploying, or your app's **Settings → Secrets** later. Never put the real key in the public GitHub repository. The AI code runs on the Streamlit server, so the key is not sent to visitors' browsers.
+For a deployed app on Streamlit Community Cloud:
+
+1. Open your app's page in your [Streamlit Community Cloud workspace](https://share.streamlit.io/).
+2. Open the app menu and choose **Settings**. You can also enter the secrets during deployment under **Advanced settings → Secrets**.
+3. In the **Secrets** box, paste the two lines shown above with your real API key in place of the placeholder.
+4. Save. Streamlit will restart the app, and the AI study buddy can use the key.
+
+Never put the real key in the public GitHub repository. The AI code runs on the Streamlit server, so the key is not sent to visitors' browsers. If you accidentally publish a real key, revoke it in the OpenAI API platform and create a new one.
 
 ## 8. Put the app on GitHub
 
@@ -91,7 +103,9 @@ For a deployed app, paste these same two lines into **Advanced settings → Secr
 1. Sign in at [share.streamlit.io](https://share.streamlit.io/) using GitHub.
 2. Choose **Create app**, then select your `campus-connect` repository and the `app.py` file.
 3. Choose **Deploy**. Streamlit reads `requirements.txt` and installs the listed packages.
-4. If you want the AI feature online, open the deployed app's settings, add `OPENAI_API_KEY` and `OPENAI_MODEL` under **Secrets**, and restart/redeploy the app.
+4. If you want the AI feature online, add `OPENAI_API_KEY` and `OPENAI_MODEL` under **Advanced settings → Secrets** during deployment, or add them later under the app's **Settings → Secrets**. Save the settings to restart the app.
+
+If your repository already exists and you change files on your computer, upload the changed files to GitHub and commit them. Streamlit Community Cloud uses the committed GitHub files and then updates the deployed app.
 
 The exact labels in GitHub or Streamlit Cloud can change, but the key choices are the repository, `app.py`, and the app secrets.
 
